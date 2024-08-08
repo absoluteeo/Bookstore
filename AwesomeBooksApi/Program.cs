@@ -14,6 +14,11 @@ var assembly = typeof(Program).Assembly;
 builder.Services.Configure<JsonContextSettings>(options =>
 {
     options.FilePath = "persistence/inventory.json";
+    
+});
+builder.Services.Configure<FileLockOptions>(options =>
+{
+    options.LockDirectory = "locks";
 });
 builder.Services.AddScoped<IJsonContext, JsonContext>();
 builder.Services.AddTransient<JsonSeeder>();
@@ -23,7 +28,7 @@ builder.Services.AddCarter();
 builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddSingleton<IFileLockManager, FileLockManager>(sp => new FileLockManager("locks"));
+builder.Services.AddSingleton<IFileLockManager, FileLockManager>();
 
 var app = builder.Build();
 

@@ -1,29 +1,38 @@
-﻿using System.IO;
+﻿using Microsoft.Extensions.Options;
+using System.IO;
 
 namespace AwesomeBooksApi.Services;
 public class FileLockManager : IFileLockManager
 {
-    public readonly string lockDirectory = "locks";
+    public readonly string _lockDirectory = "locks";
 
-    public FileLockManager(string lockDirectory)
+    public FileLockManager(IOptions<FileLockOptions> options)
     {
-        lockDirectory = lockDirectory;
-        Directory.CreateDirectory(lockDirectory);
+        _lockDirectory = options.Value.LockDirectory;
+        Directory.CreateDirectory(_lockDirectory);
     }
 
     public FileStream AcquireLock(string key)
     {
-        var lockFilePath = Path.Combine(lockDirectory, $"{key}.lock");
-        var lockFileStream = new FileStream(lockFilePath, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None);
+        var lockFilePath = Path.Combine(_lockDirectory, $"{key}.lock");
 
+        FileStream lockFileStream = null;
         try
         {
+            lockFileStream = new FileStream(lockFilePath, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None);
             lockFileStream.Lock(0, 0);
         }
-        catch
+        catch (IOException ex)
         {
-            lockFileStream.Dispose();
-            throw new InvalidOperationException("Failed to acquire lock on the resource.");
+            lockFileStream?.Dispose();
+            Console.WriteLine($"IOException: {ex.Message}"); // Debugging output
+            throw new InvalidOperationException("Failed to acquire lock on the resource.", ex);
+        }
+        catch (Exception ex)
+        {
+            lockFileStream?.Dispose();
+            Console.WriteLine($"Exception: {ex.Message}"); // Debugging output
+            throw new InvalidOperationException("Failed to acquire lock on the resource.", ex);
         }
 
         return lockFileStream;
@@ -38,7 +47,11 @@ public class FileLockManager : IFileLockManager
         finally
         {
             lockFileStream.Dispose();
-            File.Delete(lockFileStream.Name);
+
+            if (File.Exists(lockFileStream.Name))
+            {
+                File.Delete(lockFileStream.Name);
+            }
         }
     }
 }
