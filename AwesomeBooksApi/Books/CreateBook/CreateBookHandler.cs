@@ -32,7 +32,7 @@ public class CreateBookCommandValidator : AbstractValidator<CreateBookCommand>
     }
 }
 
-internal class CreateBookHandler(IInventoryRepository repository) : IRequestHandler<CreateBookCommand, Unit>
+public class CreateBookHandler(IInventoryRepository repository) : IRequestHandler<CreateBookCommand, Unit>
 {
     public async Task<Unit> Handle(CreateBookCommand command, CancellationToken cancellationToken)
     {

@@ -1,9 +1,9 @@
 ﻿using System.IO;
 
 namespace AwesomeBooksApi.Services;
-public class FileLockManager
+public class FileLockManager : IFileLockManager
 {
-    private readonly string lockDirectory = "locks";
+    public readonly string lockDirectory = "locks";
 
     public FileLockManager(string lockDirectory)
     {

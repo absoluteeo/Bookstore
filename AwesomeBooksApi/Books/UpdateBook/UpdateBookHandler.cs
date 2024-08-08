@@ -35,7 +35,7 @@ public class UpdateBookCommandValidator : AbstractValidator<UpdateBookCommand>
     }
 }
 
-internal class UpdateBookHandler(IInventoryRepository repository, FileLockManager lockManager) : IRequestHandler<UpdateBookCommand, Unit>
+public class UpdateBookHandler(IInventoryRepository repository, IFileLockManager lockManager) : IRequestHandler<UpdateBookCommand, Unit>
 {
     public async Task<Unit> Handle(UpdateBookCommand command, CancellationToken cancellationToken)
     {

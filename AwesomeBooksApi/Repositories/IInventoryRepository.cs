@@ -1,6 +1,6 @@
 ﻿namespace AwesomeBooksApi.Repositories;
 
-internal interface IInventoryRepository
+public interface IInventoryRepository
 {
     Task AddBookAsync(Book book);
     Task DeleteBookAsync(string isbn);

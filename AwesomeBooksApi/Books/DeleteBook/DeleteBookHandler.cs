@@ -26,7 +26,7 @@ public class DeleteBookCommandValidator : AbstractValidator<DeleteBookCommand>
     }
 }
 
-internal class DeleteBookHandler(IInventoryRepository repository) : IRequestHandler<DeleteBookCommand, Unit>
+public class DeleteBookHandler(IInventoryRepository repository) : IRequestHandler<DeleteBookCommand, Unit>
 {
     public async Task<Unit> Handle(DeleteBookCommand command, CancellationToken cancellationToken)
     {

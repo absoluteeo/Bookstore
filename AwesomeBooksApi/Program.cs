@@ -23,7 +23,7 @@ builder.Services.AddCarter();
 builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddSingleton<FileLockManager>(sp => new FileLockManager("locks"));
+builder.Services.AddSingleton<IFileLockManager, FileLockManager>(sp => new FileLockManager("locks"));
 
 var app = builder.Build();
 

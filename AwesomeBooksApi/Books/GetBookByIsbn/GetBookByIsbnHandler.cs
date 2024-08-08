@@ -14,7 +14,7 @@ public record GetBookByIsbnQuery : IRequest<GetBookResult>
     public string Isbn { get; }
 }
 public record GetBookResult(Book book);
-internal class GetBookByIsbnHandler(IInventoryRepository repository) : IRequestHandler<GetBookByIsbnQuery, GetBookResult>
+public class GetBookByIsbnHandler(IInventoryRepository repository) : IRequestHandler<GetBookByIsbnQuery, GetBookResult>
 {
     public async Task<GetBookResult> Handle(GetBookByIsbnQuery query, CancellationToken cancellationToken)
     {
