@@ -1,0 +1,22 @@
+{
+  "Books": [
+    {
+      "Isbn": "9783161484100",
+      "Title": "The Catcher in the Rye",
+      "Author": "James",
+      "Quantity": 0
+    },
+    {
+      "Isbn": "1234234523",
+      "Title": "string",
+      "Author": "John Jones",
+      "Quantity": 0
+    },
+    {
+      "Isbn": "abc123",
+      "Title": "New Book",
+      "Author": "Yamal",
+      "Quantity": 100
+    }
+  ]
+}

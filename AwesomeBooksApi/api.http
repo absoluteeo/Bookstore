@@ -1,0 +1,29 @@
+# For more info on HTTP files go to https://aka.ms/vs/httpfile
+@AwesomeBooksApi_HostAddress = https://localhost:7036
+
+GET {{AwesomeBooksApi_HostAddress}}/books/
+
+###
+
+GET {{AwesomeBooksApi_HostAddress}}/books?searchTerm=John
+
+###
+
+POST {{AwesomeBooksApi_HostAddress}}/books
+Content-Type: application/json
+
+{
+    "Title": "The Great Gatsby",
+    "Author": "F. Scott Fitzgerald",
+    "Isbn": "9780743273565"
+
+}
+###
+
+PUT {{AwesomeBooksApi_HostAddress}}/books
+Content-Type: application/json
+
+{
+    "Quantity": 100,
+    "Isbn": "9780743273565"
+}
